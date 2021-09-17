@@ -3,9 +3,7 @@ import Header from './components/Header';
 import Balance from './components/Balance';
 import AddTransaction from './components/AddTransaction';
 
-function App() {
-  // MAYBE TODO add functionality for decimal numbers (floating point numbers)
-  
+function App() {  
   const getLocalTransactions = () => {
     const data = localStorage.getItem('transactions');
     if(data) {
