@@ -56,9 +56,11 @@ const Balance = ({balance, setBalance, income, setIncome, expenses, setExpenses,
 						<h2>${displayBalance.toLocaleString('en', {minimumFractionDigits: 2})}</h2>
 					</div>
 					<div className="col-md-4">
-						<h6>Income</h6>
-						<h2 className="green">${displayIncome.toLocaleString('en', {minimumFractionDigits: 2})}</h2>
-						<button className="btn btn-sm btn-primary" onClick={handleModal}>Edit</button>
+						<div className="display-income">
+							<h6>Income</h6>
+							<h2 className="green">${displayIncome.toLocaleString('en', {minimumFractionDigits: 2})}</h2>
+							<button className="btn btn-sm btn-primary" onClick={handleModal}>Edit</button>
+						</div>
 					</div>
 					<div className="col-md-4">
 						<h6>Expenses</h6>
