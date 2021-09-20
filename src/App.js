@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import Header from './components/Header';
+import Footer from './components/Footer';
 import Balance from './components/Balance';
 import AddTransaction from './components/AddTransaction';
 import ErrorMessage from './components/ErrorMessage';
@@ -80,6 +81,8 @@ function App() {
         
         <ErrorMessage error={error} />     
       </div>
+      
+      <Footer />
     </div>
   );
 }
