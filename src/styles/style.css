@@ -87,4 +87,20 @@ body {
   margin-top: 3px;
 }
 
+.error-message {
+  width: 23%;
+  padding: 15px;
+  font-size: 18px;
+  text-align: center;
+  border-radius: 0 10px 10px 0;
+  position: fixed;
+  top: 50px;
+  left: -23%;
+  z-index: 11;
+  transition: all 0.3s ease;
+}
+.error-message.active {
+  left: 0;
+}
+
 /*# sourceMappingURL=style.css.map */

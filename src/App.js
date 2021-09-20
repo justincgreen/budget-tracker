@@ -2,6 +2,7 @@ import { useState } from 'react';
 import Header from './components/Header';
 import Balance from './components/Balance';
 import AddTransaction from './components/AddTransaction';
+import ErrorMessage from './components/ErrorMessage';
 
 function App() {  
   const getLocalTransactions = () => {
@@ -49,6 +50,7 @@ function App() {
   const [description, setDescription] = useState('');
   const [amount, setAmount] = useState('');
   const [expenses, setExpenses] = useState(getLocalExpenses);
+  const [error, setError] = useState('');
   
   return (
     <div className="App">
@@ -60,6 +62,7 @@ function App() {
             balance={balance} setBalance={setBalance} 
             income={income} setIncome={setIncome}
             expenses={expenses} setExpenses={setExpenses}
+            error={error} setError={setError}
           />
           
           <div className="row mt-5">
@@ -70,9 +73,12 @@ function App() {
               description={description} setDescription={setDescription}
               amount={amount} setAmount={setAmount}
               expenses={expenses} setExpenses={setExpenses}
+              error={error} setError={setError}
             />
           </div>
-        </div>        
+        </div>  
+        
+        <ErrorMessage error={error} />     
       </div>
     </div>
   );

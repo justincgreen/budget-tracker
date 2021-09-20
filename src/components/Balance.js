@@ -1,6 +1,9 @@
 import { useState } from 'react';
-const Balance = ({balance, setBalance, income, setIncome, expenses, setExpenses}) => {	
+const Balance = ({balance, setBalance, income, setIncome, expenses, setExpenses, error, setError}) => {	
 	const [input, setInput] = useState('');
+	const displayBalance = parseFloat(balance);
+	const displayIncome = parseFloat(income);
+	const displayExpenses = parseFloat(expenses);
 	
 	const handleModal = () => {
 		const modal = document.querySelector('.edit-modal');
@@ -16,22 +19,31 @@ const Balance = ({balance, setBalance, income, setIncome, expenses, setExpenses}
 		const modal = document.querySelector('.edit-modal');
 		
 		if(input !== ''){
+			const localBalanceData = parseFloat(input) - parseFloat(expenses);
+			const localIncomeData = parseFloat(input);
+			const localExpenseData = parseFloat(expenses);
+			
 			const localData = {
-				balance: parseInt(input, 10) - parseInt(expenses, 10),
-				income: parseInt(input, 10),
-				expenses: parseInt(expenses, 10)
+				balance: localBalanceData.toFixed(2),
+				income: localIncomeData.toFixed(2),
+				expenses: localExpenseData.toFixed(2)
 			}
 			
-			localStorage.setItem('balance', JSON.stringify(localData.balance));
-			localStorage.setItem('income', JSON.stringify(localData.income));
-			localStorage.setItem('expenses', JSON.stringify(localData.expenses));
+			localStorage.setItem('balance', localData.balance);
+			localStorage.setItem('income', localData.income);
+			localStorage.setItem('expenses', localData.expenses);
 			
-			setIncome(parseInt(input, 10));
-			setBalance(parseInt(input, 10) - parseInt(expenses, 10)); 
-			// Subtracting input from expenses accounts for if user updates income balance while transactions have already been added, keeps it dynamic
+			setIncome(localIncomeData.toFixed(2));
+			setBalance(localBalanceData.toFixed(2)); 
+			
 			modal.classList.remove('active');				
 		}else {
-			alert('Amount is empty');
+			setError('🚫 Enter an income amount');
+			document.querySelector('.error-message').classList.add('active');
+			
+			setTimeout(()=> {
+				document.querySelector('.error-message').classList.remove('active');				
+			}, 3000);
 		}		
 	}
 	
@@ -41,16 +53,16 @@ const Balance = ({balance, setBalance, income, setIncome, expenses, setExpenses}
 				<div className="row">
 					<div className="col-md-4">
 						<h6>Your balance</h6>
-						<h2>${balance}</h2>
+						<h2>${displayBalance.toLocaleString('en', {minimumFractionDigits: 2})}</h2>
 					</div>
 					<div className="col-md-4">
 						<h6>Income</h6>
-						<h2 className="green">${income}</h2>
+						<h2 className="green">${displayIncome.toLocaleString('en', {minimumFractionDigits: 2})}</h2>
 						<button className="btn btn-sm btn-primary" onClick={handleModal}>Edit</button>
 					</div>
 					<div className="col-md-4">
 						<h6>Expenses</h6>
-						<h2 className="red">${expenses}</h2>
+						<h2 className="red">${displayExpenses.toLocaleString('en', {minimumFractionDigits: 2})}</h2>
 					</div>
 				</div>
 			</div>
@@ -59,7 +71,7 @@ const Balance = ({balance, setBalance, income, setIncome, expenses, setExpenses}
 				<div className="edit-panel">
 					<h3>Income Amount</h3>
 					<div className="input-group mb-2">
-						<input type="text" className="form-control" placeholder="Enter Amount" value={input} onChange={(e) => setInput(e.target.value)} />
+						<input type="number" className="form-control" placeholder="Enter Amount" value={input} onChange={(e) => setInput(e.target.value)} />
 						<div className="input-group-append">
 							<button className="btn btn-sm btn-primary" onClick={saveIncome}>Save</button>
 						</div>						

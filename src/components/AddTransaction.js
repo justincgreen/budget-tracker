@@ -1,6 +1,6 @@
 const AddTransaction = ({
 	balance, setBalance, income, setIncome, transactions, setTransactions, description, setDescription, 
-	amount, setAmount, expenses, setExpenses}) => {
+	amount, setAmount, expenses, setExpenses, error, setError}) => {
 		
 	const handleTransaction = () => {		
 		const transaction = {
@@ -12,25 +12,34 @@ const AddTransaction = ({
 		const newTransaction = [...transactions, transaction];
 		
 		if(description === '' || amount === '') {
-			alert('Please enter a description and an amount');
-		}else {
+			setError('🚫 Enter a description and amount');
+			document.querySelector('.error-message').classList.add('active');
+			
+			setTimeout(()=> {
+				document.querySelector('.error-message').classList.remove('active');				
+			}, 3000);
+		}else {			
+			const localBalanceData = parseFloat(balance) - parseFloat(amount);
+			const localIncomeData = parseFloat(income)
+			const localExpenseData = parseFloat(expenses) + parseFloat(transaction.amount);
+			
 			setTransactions(newTransaction);
-			setExpenses(parseInt(expenses, 10) + parseInt(transaction.amount, 10)); // have to convert each state to a number because they are both strings by default
-			setBalance(parseInt(balance, 10) - parseInt(amount, 10));	
+			setExpenses(localExpenseData.toFixed(2)); // have to convert each state to a number because they are both strings by default
+			setBalance(localBalanceData.toFixed(2));	
 			setDescription('');
 			setAmount('');
 			
 			const localData = {
-				balance: parseInt(balance, 10) - parseInt(amount, 10),
-				income: parseInt(income, 10),
-				expenses: parseInt(expenses, 10) + parseInt(transaction.amount, 10)
+				balance: localBalanceData.toFixed(2),
+				income: localIncomeData.toFixed(2),
+				expenses: localExpenseData.toFixed(2)
 			}
 			
 			const localTransactions = [...transactions, transaction];
 			
-			localStorage.setItem('balance', JSON.stringify(localData.balance));
-			localStorage.setItem('income', JSON.stringify(localData.income));
-			localStorage.setItem('expenses', JSON.stringify(localData.expenses));
+			localStorage.setItem('balance', localData.balance);
+			localStorage.setItem('income', localData.income);
+			localStorage.setItem('expenses', localData.expenses);
 			localStorage.setItem('transactions', JSON.stringify(localTransactions));
 		}								
 	}
@@ -45,12 +54,16 @@ const AddTransaction = ({
 	}	
 	
 	const deleteAllExpenses = () => {
+		const localExpenseData = 0;
+		const localBalanceData = parseFloat(income);
+		
 		setTransactions([]);
-		setExpenses(0);
-		setBalance(parseInt(income, 10));
+		setExpenses(localExpenseData.toFixed(2));
+		setBalance(localBalanceData.toFixed(2));
+		
 		localStorage.setItem('transactions', '[]');			
-		localStorage.setItem('expenses', 0);		
-		localStorage.setItem('balance', income);		
+		localStorage.setItem('expenses', localExpenseData.toFixed(2));		
+		localStorage.setItem('balance', localBalanceData.toFixed(2));		
 	}
 	
 	return (
@@ -77,22 +90,26 @@ const AddTransaction = ({
 						<div key={item.id}>
 							<p className="form-control">{item.description} <span className="badge badge-primary">${item.amount}</span>
 								<span className="bg-danger badge remove-item" onClick={
-									(e) => {																				
+									(e) => {
+										const localBalanceData = parseFloat(balance) + parseFloat(e.target.previousSibling.textContent.substring(1));
+										const localIncomeData = parseFloat(income);
+										const localExpenseData = parseFloat(expenses) - parseFloat(e.target.previousSibling.textContent.substring(1));
 										// substring method needed to remove $ sign from item price, allows string to convert to a clean number
-										setBalance(parseInt(balance, 10) + parseInt(e.target.previousSibling.textContent.substring(1)));
-										setExpenses(parseInt(expenses, 10) - parseInt(e.target.previousSibling.textContent.substring(1)));
+										
+										setBalance(localBalanceData.toFixed(2));
+										setExpenses(localExpenseData.toFixed(2));
 										deleteExpense(item.id);
 										
 										// update local storage objects
 										const localData = {
-											balance: parseInt(balance, 10) + parseInt(e.target.previousSibling.textContent.substring(1)),
-											income: parseInt(income, 10),
-											expenses: parseInt(expenses, 10) - parseInt(e.target.previousSibling.textContent.substring(1))
+											balance: localBalanceData.toFixed(2),
+											income: localIncomeData.toFixed(2),
+											expenses: localExpenseData.toFixed(2)
 										}
 																				
-										localStorage.setItem('balance', JSON.stringify(localData.balance));
-										localStorage.setItem('income', JSON.stringify(localData.income));
-										localStorage.setItem('expenses', JSON.stringify(localData.expenses));																			
+										localStorage.setItem('balance', localData.balance);
+										localStorage.setItem('income', localData.income);
+										localStorage.setItem('expenses', localData.expenses);																			
 									}
 								}>X</span>
 							</p>
