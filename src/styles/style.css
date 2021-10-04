@@ -152,6 +152,12 @@ body {
   z-index: 11;
   transition: all 0.3s ease;
 }
+@media (max-width: 767px) {
+  .error-message {
+    width: 80%;
+    left: -80%;
+  }
+}
 .error-message.active {
   left: 0;
 }
