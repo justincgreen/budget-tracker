@@ -125,6 +125,9 @@ body {
     margin-top: 30px;
   }
 }
+.expense-list__item {
+  position: relative;
+}
 .expense-list h5 {
   margin-bottom: 25px;
   border-bottom: 1px solid #c0c0c0;
@@ -133,11 +136,25 @@ body {
 .expense-list p {
   margin-bottom: 5px;
 }
+.expense-list p.form-control {
+  height: auto;
+}
+.expense-list .badge-primary {
+  margin-left: 5px;
+}
+.expense-list .edit-item {
+  float: right;
+  margin-left: 5px;
+}
 .expense-list .remove-item {
   color: #fff;
   float: right;
   cursor: pointer;
-  margin-top: 3px;
+}
+.expense-list .current-date {
+  position: absolute;
+  top: 8px;
+  right: -100px;
 }
 
 .error-message {

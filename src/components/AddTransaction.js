@@ -1,3 +1,5 @@
+import { useEffect } from 'react';
+
 const AddTransaction = ({
 	balance, setBalance, income, setIncome, transactions, setTransactions, description, setDescription, 
 	amount, setAmount, expenses, setExpenses, error, setError}) => {
@@ -40,7 +42,7 @@ const AddTransaction = ({
 			localStorage.setItem('balance', localData.balance);
 			localStorage.setItem('income', localData.income);
 			localStorage.setItem('expenses', localData.expenses);
-			localStorage.setItem('transactions', JSON.stringify(localTransactions));
+			localStorage.setItem('transactions', JSON.stringify(localTransactions));			
 		}								
 	}
 	
@@ -66,6 +68,56 @@ const AddTransaction = ({
 		localStorage.setItem('balance', localBalanceData.toFixed(2));		
 	}
 	
+	// May just need to write a separate modal for edit button on expenses
+	// instead of trying to repurpose the same one
+	// need the text to be different "Expense Amount" instead of "Income Amount"
+	const handleModal = () => {
+		const modal = document.querySelector('.edit-modal');
+		modal.classList.add('active');
+		//modal.querySelector('h3').innerHTML = 'Expense Amount';
+	}
+	
+	// gonna have to save date in localStorage as well
+	const handleDate = () => {
+		let today = new Date();
+		const dd = String(today.getDate()).padStart(2, '0');
+		const mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+		const yyyy = today.getFullYear();
+		
+		today = mm + '/' + dd + '/' + yyyy;
+				
+		//const expenseItem = document.querySelector('.expense-list__item');
+		const expenseList = document.querySelector('.expense-list');
+		const expenseItems = expenseList.querySelectorAll('.expense-list__item');
+		
+		if(expenseList) {			
+			// do nothing
+			if(expenseItems.length < 1) {
+				console.log('no items')
+			}
+			// Add date to first item, if there is only one item 
+			if(expenseItems.length === 1) {
+				console.log('1 item')
+				// need to perform a check that says if string 'no date' exists in innerHTML then apply current date'
+				// basically need to account for dates already added from localStorage when hooked up
+				// if date exists don't add it, could check if current-date.innerHTML is empty, if so add todays date otherwise do nothing
+				expenseItems[0].querySelector('.current-date').innerHTML = today;
+			}
+			// Add date to last item, if there is more than one item
+			if(expenseItems.length > 1) {
+				console.log('More than 1 item');
+				// need to perform a check that says if string 'no date' exists in innerHTML then apply current date'
+				// basically need to account for dates already added from localStorage when hooked up
+				// if date exists don't add it, could check if current-date.innerHTML is empty, if so add todays date otherwise do nothing
+				expenseItems[expenseItems.length - 1].querySelector('.current-date').innerHTML = today;
+			}
+		}
+	}
+	
+	useEffect(() => {
+		handleDate();
+	}, [transactions])
+	
 	return (
 		<>
 		<div className="col-md-6">
@@ -87,13 +139,18 @@ const AddTransaction = ({
 				)}
 				{transactions.map((item, index) => {
 					return (
-						<div key={item.id}>
-							<p className="form-control">{item.description} <span className="badge badge-primary">${item.amount}</span>
-								<span className="bg-danger badge remove-item" onClick={
+						<div key={item.id} className="expense-list__item">
+							<p className="form-control clearfix">
+								{item.description} 
+								<span className="badge badge-primary">
+									${item.amount}
+								</span>								
+								<button className="btn btn-sm btn-primary edit-item" onClick={handleModal}>Edit</button>
+								<button className="btn btn-sm bg-danger remove-item" onClick={
 									(e) => {
-										const localBalanceData = parseFloat(balance) + parseFloat(e.target.previousSibling.textContent.substring(1));
+										const localBalanceData = parseFloat(balance) + parseFloat(e.target.previousSibling.previousSibling.textContent.substring(1));
 										const localIncomeData = parseFloat(income);
-										const localExpenseData = parseFloat(expenses) - parseFloat(e.target.previousSibling.textContent.substring(1));
+										const localExpenseData = parseFloat(expenses) - parseFloat(e.target.previousSibling.previousSibling.textContent.substring(1));
 										// substring method needed to remove $ sign from item price, allows string to convert to a clean number
 										
 										setBalance(localBalanceData.toFixed(2));
@@ -106,12 +163,13 @@ const AddTransaction = ({
 											income: localIncomeData.toFixed(2),
 											expenses: localExpenseData.toFixed(2)
 										}
-																				
+										
 										localStorage.setItem('balance', localData.balance);
 										localStorage.setItem('income', localData.income);
-										localStorage.setItem('expenses', localData.expenses);																			
+										localStorage.setItem('expenses', localData.expenses);																				
 									}
-								}>X</span>
+								}>Delete</button>
+								<span className="current-date">No date</span>
 							</p>
 						</div>
 					)

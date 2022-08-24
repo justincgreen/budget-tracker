@@ -138,6 +138,10 @@ body {
 		margin-top: 30px;
 	}
 	
+	&__item {
+		position: relative;
+	}
+	
 	h5 {
 		margin-bottom: 25px;
 		border-bottom: 1px solid #c0c0c0;
@@ -146,13 +150,31 @@ body {
 	
 	p {
 		margin-bottom: 5px;
+		
+		&.form-control {
+			height: auto;
+		}
+	}
+	
+	.badge-primary {
+		margin-left: 5px;
+	}
+	
+	.edit-item {
+		float: right;
+		margin-left: 5px;
 	}
 	
 	.remove-item {
 		color: #fff;
 		float: right;
 		cursor: pointer;
-		margin-top: 3px;
+	}
+	
+	.current-date {
+		position: absolute;
+		top: 8px;
+		right: -100px;
 	}
 }
 
