@@ -3,12 +3,24 @@ import { useEffect } from 'react';
 const AddTransaction = ({
 	balance, setBalance, income, setIncome, transactions, setTransactions, description, setDescription, 
 	amount, setAmount, expenses, setExpenses, error, setError}) => {
+	
+	const handleDate = () => {
+		let today = new Date();
+		const dd = String(today.getDate()).padStart(2, '0');
+		const mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+		const yyyy = today.getFullYear();
 		
+		today = mm + '/' + dd + '/' + yyyy;
+		
+		return today;
+	}
+	
 	const handleTransaction = () => {		
 		const transaction = {
 			id: Date.now(),
 			description: description,
-			amount: amount
+			amount: amount,
+			date: handleDate()
 		}	
 		
 		const newTransaction = [...transactions, transaction];
@@ -44,7 +56,7 @@ const AddTransaction = ({
 			localStorage.setItem('expenses', localData.expenses);
 			localStorage.setItem('transactions', JSON.stringify(localTransactions));			
 		}								
-	}
+	}	
 	
 	const deleteExpense = (id) => {
 		const filterItems = transactions.filter((element, index) => {
@@ -77,15 +89,15 @@ const AddTransaction = ({
 		//modal.querySelector('h3').innerHTML = 'Expense Amount';
 	}
 	
-	// gonna have to save date in localStorage as well
-	const handleDate = () => {
+	// gonna have to save date in localStorage as well ** I dont think I actually need this function anymore
+	const handleExpenseDate = () => {
 		let today = new Date();
 		const dd = String(today.getDate()).padStart(2, '0');
 		const mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
 		const yyyy = today.getFullYear();
 		
 		today = mm + '/' + dd + '/' + yyyy;
-				
+		
 		//const expenseItem = document.querySelector('.expense-list__item');
 		const expenseList = document.querySelector('.expense-list');
 		const expenseItems = expenseList.querySelectorAll('.expense-list__item');
@@ -114,9 +126,9 @@ const AddTransaction = ({
 		}
 	}
 	
-	useEffect(() => {
-		handleDate();
-	}, [transactions])
+	//useEffect(() => {
+		//handleExpenseDate();
+	//}, [transactions])
 	
 	return (
 		<>
@@ -142,15 +154,15 @@ const AddTransaction = ({
 						<div key={item.id} className="expense-list__item">
 							<p className="form-control clearfix">
 								{item.description} 
-								<span className="badge badge-primary">
+								<span className="badge badge-primary expense-list__amount">
 									${item.amount}
 								</span>								
 								<button className="btn btn-sm btn-primary edit-item" onClick={handleModal}>Edit</button>
 								<button className="btn btn-sm bg-danger remove-item" onClick={
 									(e) => {
-										const localBalanceData = parseFloat(balance) + parseFloat(e.target.previousSibling.previousSibling.textContent.substring(1));
+										const localBalanceData = parseFloat(balance) + parseFloat(e.target.closest('.form-control').querySelector('.expense-list__amount').textContent.substring(1));
 										const localIncomeData = parseFloat(income);
-										const localExpenseData = parseFloat(expenses) - parseFloat(e.target.previousSibling.previousSibling.textContent.substring(1));
+										const localExpenseData = parseFloat(expenses) - parseFloat(e.target.closest('.form-control').querySelector('.expense-list__amount').textContent.substring(1));
 										// substring method needed to remove $ sign from item price, allows string to convert to a clean number
 										
 										setBalance(localBalanceData.toFixed(2));
@@ -169,7 +181,7 @@ const AddTransaction = ({
 										localStorage.setItem('expenses', localData.expenses);																				
 									}
 								}>Delete</button>
-								<span className="current-date">No date</span>
+								<span className="current-date">{item.date}</span>
 							</p>
 						</div>
 					)
