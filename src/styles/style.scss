@@ -175,6 +175,49 @@ body {
 	}
 }
 
+// Delete all expenses modal
+.delete-all-modal {
+	background-color: rgba(1, 177, 251, 0.7);
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;		
+	z-index: 10;
+	display: none;
+	
+	&.active {
+		display: block;
+	}
+	
+	&__message {
+		width: 400px;
+		padding: 20px;
+		text-align: center;
+		border-radius: 10px;
+		background-color: #fff;
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		z-index: 10;
+		
+		@media(max-width: 767px) {
+			width: 300px;
+		}
+		
+		h3 {
+			@media(max-width: 767px) {
+				font-size: 24px;
+			}	
+		}
+		
+		.btn {
+			margin-right: 5px;
+		}
+	}
+}
+
 // Error message
 .error-message {
 	width: 23%;

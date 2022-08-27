@@ -58,6 +58,7 @@ const AddTransaction = ({
 		}								
 	}	
 	
+	// Delete individual expense
 	const deleteExpense = (id) => {
 		const filterItems = transactions.filter((element, index) => {
 		  return element.id !== id;		  
@@ -67,9 +68,18 @@ const AddTransaction = ({
 		localStorage.setItem('transactions', JSON.stringify(filterItems));		
 	}	
 	
+	// Delete all expenses modal prompt
+	const deleteAllExpensesPrompt = () => {
+		const modal = document.querySelector('.delete-all-modal');
+		modal.classList.add('active');	
+	}
+	
+	// Delete all expenses
 	const deleteAllExpenses = () => {
 		const localExpenseData = 0;
 		const localBalanceData = parseFloat(income);
+		const modal = document.querySelector('.delete-all-modal');
+		modal.classList.remove('active');	
 		
 		setTransactions([]);
 		setExpenses(localExpenseData.toFixed(2));
@@ -126,6 +136,11 @@ const AddTransaction = ({
 		}
 	}
 	
+	const closeModal = () => {
+		const modal = document.querySelector('.delete-all-modal');
+		modal.classList.remove('active');
+	}
+	
 	//useEffect(() => {
 		//handleExpenseDate();
 	//}, [transactions])
@@ -155,15 +170,15 @@ const AddTransaction = ({
 							<div className="form-control clearfix">
 								<div className="expense-list__item--info">
 									<span className="current-date badge">{item.date}</span>
-									<div class="expense-list__item--description">
+									<div className="expense-list__item--description">
 										{item.description} 
 										<span className="badge badge-primary expense-list__amount">
 											${item.amount}
 										</span>	
 									</div>
 								</div>
-								<div class="btn-wrapper">	
-									<div class="btn-group">
+								<div className="btn-wrapper">	
+									<div className="btn-group">
 										<button className="btn btn-sm btn-primary edit-item" onClick={handleModal}>Edit</button>
 										<button className="btn btn-sm bg-danger remove-item" onClick={
 											(e) => {
@@ -196,8 +211,16 @@ const AddTransaction = ({
 				})}
 				
 				{transactions.length > 1 && (
-					<button className="btn btn-sm btn-danger mt-2 float-right" onClick={deleteAllExpenses}>Delete all expenses</button>
+					<button className="btn btn-sm btn-danger mt-2 float-right" onClick={deleteAllExpensesPrompt}>Delete all expenses</button>
 				)}
+				
+				<div className="delete-all-modal">
+					<div className="delete-all-modal__message">
+						<h3>Do you really want to delete all expenses?</h3>
+						<button className="btn btn-sm btn-primary" onClick={deleteAllExpenses}>Yes</button>
+						<button className="btn btn-sm btn-danger" onClick={closeModal}>No</button>
+					</div>					
+				</div>
 			</div>
 		</div>
 		</>
