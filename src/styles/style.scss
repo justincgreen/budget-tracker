@@ -140,6 +140,10 @@ body {
 	
 	&__item {
 		position: relative;
+		
+		&--info {
+			
+		}
 	}
 	
 	h5 {
@@ -148,33 +152,26 @@ body {
 		padding-bottom: 10px;
 	}
 	
-	p {
+	.form-control {
 		margin-bottom: 5px;
-		
-		&.form-control {
-			height: auto;
-		}
+		height: auto;
 	}
 	
 	.badge-primary {
 		margin-left: 5px;
 	}
 	
-	.edit-item {
-		float: right;
-		margin-left: 5px;
+	.btn-wrapper {
+		text-align: right;
 	}
 	
 	.remove-item {
 		color: #fff;
-		float: right;
-		cursor: pointer;
 	}
 	
 	.current-date {
-		position: absolute;
-		top: 8px;
-		right: -100px;
+		font-size: 12px;
+		padding-left: 0;
 	}
 }
 

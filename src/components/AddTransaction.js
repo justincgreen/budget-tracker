@@ -151,38 +151,46 @@ const AddTransaction = ({
 				)}
 				{transactions.map((item, index) => {
 					return (
-						<div key={item.id} className="expense-list__item">
-							<p className="form-control clearfix">
-								{item.description} 
-								<span className="badge badge-primary expense-list__amount">
-									${item.amount}
-								</span>								
-								<button className="btn btn-sm btn-primary edit-item" onClick={handleModal}>Edit</button>
-								<button className="btn btn-sm bg-danger remove-item" onClick={
-									(e) => {
-										const localBalanceData = parseFloat(balance) + parseFloat(e.target.closest('.form-control').querySelector('.expense-list__amount').textContent.substring(1));
-										const localIncomeData = parseFloat(income);
-										const localExpenseData = parseFloat(expenses) - parseFloat(e.target.closest('.form-control').querySelector('.expense-list__amount').textContent.substring(1));
-										// substring method needed to remove $ sign from item price, allows string to convert to a clean number
-										
-										setBalance(localBalanceData.toFixed(2));
-										setExpenses(localExpenseData.toFixed(2));
-										deleteExpense(item.id);
-										
-										// update local storage objects
-										const localData = {
-											balance: localBalanceData.toFixed(2),
-											income: localIncomeData.toFixed(2),
-											expenses: localExpenseData.toFixed(2)
-										}
-										
-										localStorage.setItem('balance', localData.balance);
-										localStorage.setItem('income', localData.income);
-										localStorage.setItem('expenses', localData.expenses);																				
-									}
-								}>Delete</button>
-								<span className="current-date">{item.date}</span>
-							</p>
+						<div key={item.id} className="expense-list__item">							
+							<div className="form-control clearfix">
+								<div className="expense-list__item--info">
+									<span className="current-date badge">{item.date}</span>
+									<div class="expense-list__item--description">
+										{item.description} 
+										<span className="badge badge-primary expense-list__amount">
+											${item.amount}
+										</span>	
+									</div>
+								</div>
+								<div class="btn-wrapper">	
+									<div class="btn-group">
+										<button className="btn btn-sm btn-primary edit-item" onClick={handleModal}>Edit</button>
+										<button className="btn btn-sm bg-danger remove-item" onClick={
+											(e) => {
+												const localBalanceData = parseFloat(balance) + parseFloat(e.target.closest('.form-control').querySelector('.expense-list__amount').textContent.substring(1));
+												const localIncomeData = parseFloat(income);
+												const localExpenseData = parseFloat(expenses) - parseFloat(e.target.closest('.form-control').querySelector('.expense-list__amount').textContent.substring(1));
+												// substring method needed to remove $ sign from item price, allows string to convert to a clean number
+												
+												setBalance(localBalanceData.toFixed(2));
+												setExpenses(localExpenseData.toFixed(2));
+												deleteExpense(item.id);
+												
+												// update local storage objects
+												const localData = {
+													balance: localBalanceData.toFixed(2),
+													income: localIncomeData.toFixed(2),
+													expenses: localExpenseData.toFixed(2)
+												}
+												
+												localStorage.setItem('balance', localData.balance);
+												localStorage.setItem('income', localData.income);
+												localStorage.setItem('expenses', localData.expenses);																				
+											}
+										}>Delete</button>	
+									</div>
+								</div>																					
+							</div>
 						</div>
 					)
 				})}
