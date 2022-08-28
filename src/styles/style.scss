@@ -62,10 +62,19 @@ body {
 		right: 0;
 		bottom: 0;		
 		z-index: 10;
-		display: none;
+		opacity: 0;
+		visibility: hidden;
+		pointer-events: none;
+		transition: all 0.3s ease;
 		
 		&.active {
-			display: block;
+			opacity: 1;
+			visibility: visible;
+			pointer-events: auto;
+					
+			.edit-panel {
+				transform: translate(-50%, -50%);
+			}
 		}
 		
 		.edit-panel {
@@ -76,8 +85,9 @@ body {
 			position: absolute;
 			top: 50%;
 			left: 50%;
-			transform: translate(-50%, -50%);
+			transform: translate(-50%, 0%);
 			z-index: 10;
+			transition: all 0.2s ease;
 			
 			@media(max-width: 767px) {
 				width: 300px;
@@ -231,24 +241,18 @@ body {
 
 // Error message
 .error-message {
-	width: 23%;
 	padding: 15px;
 	font-size: 18px;
 	text-align: center;
-	border-radius: 0 10px 10px 0;
 	position: fixed;
-	top: 50px;
-	left: -23%;
+	bottom: -10%;
+	left: 0;
+	right: 0;
 	z-index: 11;
 	transition: all .3s ease;
 	
-	@media(max-width: 767px) {
-		width: 80%;
-		left: -80%;
-	}
-	
 	&.active {
-		left: 0;
+		bottom: 0;
 	}
 }
 
