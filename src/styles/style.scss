@@ -1,3 +1,34 @@
+.dark-theme {
+	body {
+		background-color: #1e1e1e;
+	}
+	
+	.app-header {
+		border-bottom: 1px solid #555252;
+	}
+	
+	.balance {
+		h2,
+		h6 {
+			color: #fff;
+		}
+	}
+	
+	.add-transaction {
+		color: #fff;
+	}
+	
+	.expense-list {
+		h5 {
+			color: #fff;
+		}
+	}
+	
+	.app-footer {
+		color: #fff;
+	}
+}
+
 body {
 	font-family: 'Open Sans', sans-serif;
 }
