@@ -150,9 +150,9 @@ const AddTransaction = ({
 		<div className="col-md-6">
 			<div className="add-transaction">
 				<h5>Add new transaction</h5>
-				<p className="mt-3">Description</p>
+				<p className="mt-3 mb-1">Description</p>
 				<input type="text" className="form-control mb-2" placeholder="Description..." value={description} onChange={(e) => setDescription(e.target.value)} />
-				<p>Amount</p>
+				<p className="mb-1">Amount</p>
 				<input type="number" className="form-control" placeholder="Enter amount..." value={amount} onChange={(e) => setAmount(e.target.value)} />
 				<button className="btn btn-primary btn-sm mt-3" onClick={handleTransaction}>Add transaction</button>
 			</div>						

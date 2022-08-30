@@ -1,36 +1,66 @@
-.dark-theme {
-	body {
-		background-color: #1e1e1e;
-	}
-	
-	.app-header {
-		border-bottom: 1px solid #555252;
-	}
-	
-	.balance {
-		h2,
-		h6 {
-			color: #fff;
-		}
-	}
-	
-	.add-transaction {
-		color: #fff;
-	}
-	
-	.expense-list {
-		h5 {
-			color: #fff;
-		}
-	}
-	
-	.app-footer {
-		color: #fff;
-	}
-}
-
 body {
 	font-family: 'Open Sans', sans-serif;
+	
+	&.dark-theme {
+		background-color: #1e1e1e;
+		
+		.app-header {
+			border-bottom: 1px solid #555252;
+			background-color: #1e1e1e;
+			color: #fff;
+		}
+		
+		.balance {
+			border-bottom: 1px solid #555252;
+			
+			h2,
+			h6 {
+				color: #fff;
+			}
+			
+			.display-income {
+				border-top: 1px solid #555252;
+				border-bottom: 1px solid #555252;
+			}
+		}
+		
+		.add-transaction {
+			color: #fff;
+			
+			.form-control {
+				border-color: #555252;
+				
+				&:focus {
+					background-color: #242528;
+					color: #fff;
+				}
+			}
+		}
+		
+		.expense-list {
+			h5 {
+				color: #fff;
+			}
+			
+			.form-control {
+				background-color: #242528;
+				color: #fff;
+				
+				&:focus {
+					background-color: #242528;
+					color: #fff;
+				}
+			}
+		}
+		
+		.app-footer {
+			color: #fff;
+			
+			a {
+				color: #25ce28;
+			}
+		}
+	}
 }
 
 
@@ -154,11 +184,11 @@ body {
 }
 
 .green {
-	color: #25ce28;
+	color: #25ce28 !important;
 }
 
 .red {
-	color: #ff4c4c;
+	color: #ff4c4c !important;
 }
 
 // Add transaction

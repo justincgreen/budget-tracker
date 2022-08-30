@@ -1,6 +1,52 @@
 body {
   font-family: "Open Sans", sans-serif;
 }
+body.dark-theme {
+  background-color: #1e1e1e;
+}
+body.dark-theme .app-header {
+  border-bottom: 1px solid #555252;
+  background-color: #1e1e1e;
+  color: #fff;
+}
+body.dark-theme .balance {
+  border-bottom: 1px solid #555252;
+}
+body.dark-theme .balance h2,
+body.dark-theme .balance h6 {
+  color: #fff;
+}
+body.dark-theme .balance .display-income {
+  border-top: 1px solid #555252;
+  border-bottom: 1px solid #555252;
+}
+body.dark-theme .add-transaction {
+  color: #fff;
+}
+body.dark-theme .add-transaction .form-control {
+  border-color: #555252;
+}
+body.dark-theme .add-transaction .form-control:focus {
+  background-color: #242528;
+  color: #fff;
+}
+body.dark-theme .expense-list h5 {
+  color: #fff;
+}
+body.dark-theme .expense-list .form-control {
+  background-color: #242528;
+  color: #fff;
+}
+body.dark-theme .expense-list .form-control:focus {
+  background-color: #242528;
+  color: #fff;
+}
+body.dark-theme .app-footer {
+  color: #fff;
+}
+body.dark-theme .app-footer a {
+  color: #25ce28;
+}
 
 .app-header {
   padding: 10px 0;
@@ -114,11 +160,11 @@ body {
 }
 
 .green {
-  color: #25ce28;
+  color: #25ce28 !important;
 }
 
 .red {
-  color: #ff4c4c;
+  color: #ff4c4c !important;
 }
 
 .add-transaction h5 {
