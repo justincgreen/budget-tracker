@@ -4,6 +4,11 @@ body {
 	&.dark-theme {
 		background-color: #1e1e1e;
 		
+		.form-control {
+			background-color: #242528 !important;
+			border-color: #555252 !important;
+		}
+		
 		.app-header {
 			border-bottom: 1px solid #555252;
 			background-color: #1e1e1e;
@@ -19,17 +24,29 @@ body {
 			}
 			
 			.display-income {
-				border-top: 1px solid #555252;
-				border-bottom: 1px solid #555252;
+				@media(max-width: 767px) {
+					border-top: 1px solid #555252;
+					border-bottom: 1px solid #555252;	
+				}				
+			}
+		}
+		
+		.edit-panel {
+			background-color: #1e1e1e !important;
+			color: #fff;
+			
+			.form-control {				
+				&:focus {
+					background-color: #242528 !important;
+					color: #fff;
+				}
 			}
 		}
 		
 		.add-transaction {
 			color: #fff;
 			
-			.form-control {
-				border-color: #555252;
-				
+			.form-control {				
 				&:focus {
 					background-color: #242528;
 					color: #fff;
@@ -43,7 +60,6 @@ body {
 			}
 			
 			.form-control {
-				background-color: #242528;
 				color: #fff;
 				
 				&:focus {
