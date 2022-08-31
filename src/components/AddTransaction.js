@@ -99,43 +99,6 @@ const AddTransaction = ({
 		//modal.querySelector('h3').innerHTML = 'Expense Amount';
 	}
 	
-	// gonna have to save date in localStorage as well ** I dont think I actually need this function anymore
-	const handleExpenseDate = () => {
-		let today = new Date();
-		const dd = String(today.getDate()).padStart(2, '0');
-		const mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-		const yyyy = today.getFullYear();
-		
-		today = mm + '/' + dd + '/' + yyyy;
-		
-		//const expenseItem = document.querySelector('.expense-list__item');
-		const expenseList = document.querySelector('.expense-list');
-		const expenseItems = expenseList.querySelectorAll('.expense-list__item');
-		
-		if(expenseList) {			
-			// do nothing
-			if(expenseItems.length < 1) {
-				console.log('no items')
-			}
-			// Add date to first item, if there is only one item 
-			if(expenseItems.length === 1) {
-				console.log('1 item')
-				// need to perform a check that says if string 'no date' exists in innerHTML then apply current date'
-				// basically need to account for dates already added from localStorage when hooked up
-				// if date exists don't add it, could check if current-date.innerHTML is empty, if so add todays date otherwise do nothing
-				expenseItems[0].querySelector('.current-date').innerHTML = today;
-			}
-			// Add date to last item, if there is more than one item
-			if(expenseItems.length > 1) {
-				console.log('More than 1 item');
-				// need to perform a check that says if string 'no date' exists in innerHTML then apply current date'
-				// basically need to account for dates already added from localStorage when hooked up
-				// if date exists don't add it, could check if current-date.innerHTML is empty, if so add todays date otherwise do nothing
-				expenseItems[expenseItems.length - 1].querySelector('.current-date').innerHTML = today;
-			}
-		}
-	}
-	
 	const closeModal = () => {
 		const modal = document.querySelector('.delete-all-modal');
 		modal.classList.remove('active');
