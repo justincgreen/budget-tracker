@@ -58,27 +58,39 @@ const AddTransaction = ({
 		}								
 	}	
 	
+	
+	// Delete individual expense modal prompt - still sorting out how to trigger prompt and handle deleteExpense() from outside of the element 
+	// maybe try mutation observer to watch for class change on .delete-modal__message--single, watch for active class
+	const deleteExpensePrompt = () => {
+		const modal = document.querySelector('.delete-modal');
+		const modalMessage = document.querySelector('.delete-modal__message--single');
+		modal.classList.add('active');	
+		modalMessage.classList.add('active');		
+	}
+	
 	// Delete individual expense
 	const deleteExpense = (id) => {
 		const filterItems = transactions.filter((element, index) => {
 		  return element.id !== id;		  
-		})				
-		
+		});
+			
 		setTransactions(filterItems);
 		localStorage.setItem('transactions', JSON.stringify(filterItems));		
 	}	
 	
 	// Delete all expenses modal prompt
 	const deleteAllExpensesPrompt = () => {
-		const modal = document.querySelector('.delete-all-modal');
+		const modal = document.querySelector('.delete-modal');
+		const modalMessage = document.querySelector('.delete-modal__message--all');
 		modal.classList.add('active');	
+		modalMessage.classList.add('active');	
 	}
 	
 	// Delete all expenses
 	const deleteAllExpenses = () => {
 		const localExpenseData = 0;
 		const localBalanceData = parseFloat(income);
-		const modal = document.querySelector('.delete-all-modal');
+		const modal = document.querySelector('.delete-modal');
 		modal.classList.remove('active');	
 		
 		setTransactions([]);
@@ -93,15 +105,19 @@ const AddTransaction = ({
 	// May just need to write a separate modal for edit button on expenses
 	// instead of trying to repurpose the same one
 	// need the text to be different "Expense Amount" instead of "Income Amount"
-	const handleExpenseModal = () => {
-		const modal = document.querySelector('.edit-modal');
-		modal.classList.add('active');
+	//const handleExpenseModal = () => {
+		//const modal = document.querySelector('.edit-modal');
+		//modal.classList.add('active');
 		//modal.querySelector('h3').innerHTML = 'Expense Amount';
-	}
+	//}
 	
-	const closeModal = () => {
-		const modal = document.querySelector('.delete-all-modal');
+	const closeDeleteModal = () => {
+		const modal = document.querySelector('.delete-modal');
+		const modalMessageOne = document.querySelector('.delete-modal__message--single');
+		const modalMessageTwo = document.querySelector('.delete-modal__message--all');
 		modal.classList.remove('active');
+		modalMessageOne.classList.remove('active');	
+		modalMessageTwo.classList.remove('active');	
 	}
 	
 	//useEffect(() => {
@@ -177,11 +193,17 @@ const AddTransaction = ({
 					<button className="btn btn-sm btn-danger mt-2 float-right" onClick={deleteAllExpensesPrompt}>Delete all expenses</button>
 				)}
 				
-				<div className="delete-all-modal">
-					<div className="delete-all-modal__message">
+				<div className="delete-modal">
+					<div className="delete-modal__message delete-modal__message--single">
+						<h3>Do you really want to delete this expense?</h3>
+						<button className="btn btn-sm btn-primary">Yes</button>
+						<button className="btn btn-sm btn-danger" onClick={closeDeleteModal}>No</button>
+					</div>
+					
+					<div className="delete-modal__message delete-modal__message--all">
 						<h3>Do you really want to delete all expenses?</h3>
 						<button className="btn btn-sm btn-primary" onClick={deleteAllExpenses}>Yes</button>
-						<button className="btn btn-sm btn-danger" onClick={closeModal}>No</button>
+						<button className="btn btn-sm btn-danger" onClick={closeDeleteModal}>No</button>
 					</div>					
 				</div>
 			</div>

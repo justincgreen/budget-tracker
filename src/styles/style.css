@@ -28,12 +28,12 @@ body.dark-theme .balance h6 {
   }
 }
 body.dark-theme .edit-panel,
-body.dark-theme .delete-all-modal__message {
+body.dark-theme .delete-modal__message--all {
   background-color: #1e1e1e !important;
   color: #fff;
 }
 body.dark-theme .edit-panel .form-control:focus,
-body.dark-theme .delete-all-modal__message .form-control:focus {
+body.dark-theme .delete-modal__message--all .form-control:focus {
   background-color: #242528 !important;
   color: #fff;
 }
@@ -231,7 +231,7 @@ body.dark-theme .app-footer a {
   padding-left: 0;
 }
 
-.delete-all-modal {
+.delete-modal {
   background-color: rgba(1, 177, 251, 0.7);
   position: fixed;
   top: 0;
@@ -244,15 +244,12 @@ body.dark-theme .app-footer a {
   pointer-events: none;
   transition: all 0.3s ease;
 }
-.delete-all-modal.active {
+.delete-modal.active {
   opacity: 1;
   visibility: visible;
   pointer-events: auto;
 }
-.delete-all-modal.active .delete-all-modal__message {
-  transform: translate(-50%, -50%);
-}
-.delete-all-modal__message {
+.delete-modal__message {
   width: 400px;
   padding: 20px;
   text-align: center;
@@ -263,20 +260,32 @@ body.dark-theme .app-footer a {
   left: 50%;
   transform: translate(-50%, 0%);
   z-index: 10;
+  opacity: 0;
+  pointer-events: none;
   transition: all 0.2s ease;
 }
 @media (max-width: 767px) {
-  .delete-all-modal__message {
+  .delete-modal__message {
     width: 300px;
   }
 }
 @media (max-width: 767px) {
-  .delete-all-modal__message h3 {
+  .delete-modal__message h3 {
     font-size: 24px;
   }
 }
-.delete-all-modal__message .btn {
+.delete-modal__message .btn {
   margin-right: 5px;
+}
+.delete-modal__message--single.active {
+  opacity: 1;
+  transform: translate(-50%, -50%);
+  pointer-events: initial;
+}
+.delete-modal__message--all.active {
+  opacity: 1;
+  transform: translate(-50%, -50%);
+  pointer-events: initial;
 }
 
 .error-message {

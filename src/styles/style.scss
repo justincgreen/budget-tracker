@@ -33,7 +33,7 @@ body {
 		}
 		
 		.edit-panel,
-		.delete-all-modal__message {
+		.delete-modal__message--all {
 			background-color: #1e1e1e !important;
 			color: #fff;
 			
@@ -282,8 +282,8 @@ body {
 	}
 }
 
-// Delete all expenses modal
-.delete-all-modal {
+// Delete expenses modal
+.delete-modal {
 	background-color: rgba(1, 177, 251, 0.7);
 	position: fixed;
 	top: 0;
@@ -301,10 +301,14 @@ body {
 		opacity: 1;
 		visibility: visible;
 		pointer-events: auto;
-				
-		.delete-all-modal__message {
-			transform: translate(-50%, -50%);
-		}
+		
+		// .delete-modal__message--single {
+		// 	transform: translate(-50%, -50%);
+		// }
+		// 	
+		// .delete-modal__message--all {
+		// 	transform: translate(-50%, -50%);
+		// }
 	}
 	
 	&__message {
@@ -318,6 +322,8 @@ body {
 		left: 50%;
 		transform: translate(-50%, 0%);
 		z-index: 10;
+		opacity: 0;
+		pointer-events: none;
 		transition: all 0.2s ease;
 		
 		@media(max-width: 767px) {
@@ -332,6 +338,18 @@ body {
 		
 		.btn {
 			margin-right: 5px;
+		}
+		
+		&--single.active {
+			opacity: 1;
+			transform: translate(-50%, -50%);
+			pointer-events: initial;
+		}
+			
+		&--all.active {
+			opacity: 1;
+			transform: translate(-50%, -50%);
+			pointer-events: initial;
 		}
 	}
 }
