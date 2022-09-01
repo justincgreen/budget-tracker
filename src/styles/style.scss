@@ -1,5 +1,6 @@
 body {
 	font-family: 'Open Sans', sans-serif;
+	transition: background-color 0.2s ease;
 	
 	&.dark-theme {
 		background-color: #1e1e1e;
@@ -31,7 +32,8 @@ body {
 			}
 		}
 		
-		.edit-panel {
+		.edit-panel,
+		.delete-all-modal__message {
 			background-color: #1e1e1e !important;
 			color: #fff;
 			
@@ -86,6 +88,10 @@ body {
 	background-color: #f7f5f5;
 	text-align: center;
 	
+	.container {
+		position: relative;
+	}
+	
 	h1 {		
 		font-size: 30px;
 		margin: 0;
@@ -94,6 +100,11 @@ body {
 			font-size: 24px !important;
 		}
 	}
+	
+	// .app-logo {
+	// 	font-size: 30px;
+	// 	color: #007bff;
+	// }
 	
 	.logo {
 		background-color: #007bff;
@@ -113,6 +124,12 @@ body {
 			font-size: 24px;
 			top: 0;
 		}
+	}
+	
+	.toggle-theme {
+		position: absolute;
+		top: 5px;
+		right: 15px;
 	}
 }
 

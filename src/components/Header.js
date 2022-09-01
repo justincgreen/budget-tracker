@@ -1,18 +1,18 @@
 
 const Header = () => {
+	const toggleTheme = () => {
+		document.body.classList.toggle('dark-theme');	
+	}
+	
 	return (
 		<header className="app-header">
 			<div className="container">
 				<h1>
-					{/* <span className="logo">$</span> */}
-					<span className="material-symbols-outlined">
-						payments
-					</span>
+					<span className="logo">$</span>
+					{/* <span className="material-symbols-outlined app-logo">price_change</span> */}
 					Budget Tracker
 				</h1>
-				<span className="material-symbols-outlined">
-					bolt
-				</span>
+				<span className="material-symbols-outlined toggle-theme" onClick={toggleTheme}>bolt</span>
 			</div>			
 		</header>
 	)

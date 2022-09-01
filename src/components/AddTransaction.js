@@ -93,7 +93,7 @@ const AddTransaction = ({
 	// May just need to write a separate modal for edit button on expenses
 	// instead of trying to repurpose the same one
 	// need the text to be different "Expense Amount" instead of "Income Amount"
-	const handleModal = () => {
+	const handleExpenseModal = () => {
 		const modal = document.querySelector('.edit-modal');
 		modal.classList.add('active');
 		//modal.querySelector('h3').innerHTML = 'Expense Amount';
@@ -142,7 +142,7 @@ const AddTransaction = ({
 								</div>
 								<div className="btn-wrapper">	
 									<div className="btn-group">
-										<button className="btn btn-sm btn-primary edit-item" onClick={handleModal}>Edit</button>
+										<button className="btn btn-sm btn-primary edit-item">Edit</button>
 										<button className="btn btn-sm bg-danger remove-item" onClick={
 											(e) => {
 												const localBalanceData = parseFloat(balance) + parseFloat(e.target.closest('.form-control').querySelector('.expense-list__amount').textContent.substring(1));

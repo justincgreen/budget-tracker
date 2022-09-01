@@ -45,6 +45,8 @@ function App() {
     }
   }
   
+  // Add function to pull dark theme state from local storage
+  
   const [balance, setBalance] = useState(getLocalBalance);
   const [income, setIncome] = useState(getLocalIncome);
   const [transactions, setTransactions] = useState(getLocalTransactions);

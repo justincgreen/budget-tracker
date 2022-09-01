@@ -1,5 +1,6 @@
 body {
   font-family: "Open Sans", sans-serif;
+  transition: background-color 0.2s ease;
 }
 body.dark-theme {
   background-color: #1e1e1e;
@@ -26,11 +27,13 @@ body.dark-theme .balance h6 {
     border-bottom: 1px solid #555252;
   }
 }
-body.dark-theme .edit-panel {
+body.dark-theme .edit-panel,
+body.dark-theme .delete-all-modal__message {
   background-color: #1e1e1e !important;
   color: #fff;
 }
-body.dark-theme .edit-panel .form-control:focus {
+body.dark-theme .edit-panel .form-control:focus,
+body.dark-theme .delete-all-modal__message .form-control:focus {
   background-color: #242528 !important;
   color: #fff;
 }
@@ -63,6 +66,9 @@ body.dark-theme .app-footer a {
   background-color: #f7f5f5;
   text-align: center;
 }
+.app-header .container {
+  position: relative;
+}
 .app-header h1 {
   font-size: 30px;
   margin: 0;
@@ -91,6 +97,11 @@ body.dark-theme .app-footer a {
     font-size: 24px;
     top: 0;
   }
+}
+.app-header .toggle-theme {
+  position: absolute;
+  top: 5px;
+  right: 15px;
 }
 
 .content {
