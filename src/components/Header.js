@@ -9,7 +9,6 @@ const Header = () => {
 			<div className="container">
 				<h1>
 					<span className="logo">$</span>
-					{/* <span className="material-symbols-outlined app-logo">price_change</span> */}
 					Budget Tracker
 				</h1>
 				<span className="material-symbols-outlined toggle-theme" onClick={toggleTheme}>bolt</span>

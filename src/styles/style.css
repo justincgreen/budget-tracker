@@ -8,6 +8,7 @@ body.dark-theme {
 body.dark-theme .form-control {
   background-color: #242528 !important;
   border-color: #555252 !important;
+  color: #fff !important;
 }
 body.dark-theme .app-header {
   border-bottom: 1px solid #555252;
@@ -99,6 +100,7 @@ body.dark-theme .app-footer a {
   }
 }
 .app-header .toggle-theme {
+  cursor: pointer;
   position: absolute;
   top: 5px;
   right: 15px;
@@ -196,8 +198,41 @@ body.dark-theme .app-footer a {
   border-bottom: 1px solid #c0c0c0;
   padding-bottom: 10px;
 }
+.add-transaction .auto-tags {
+  display: flex;
+}
+.add-transaction .auto-tags__message {
+  font-size: 14px;
+}
+.add-transaction .auto-tags__input {
+  width: 20px;
+  margin-right: 10px;
+}
+.add-transaction .auto-tags__list {
+  display: none;
+  margin-left: 10px;
+}
+.add-transaction .auto-tags__list .badge {
+  margin-right: 5px;
+  cursor: pointer;
+}
+.add-transaction .auto-tags__list.active {
+  display: block;
+}
 .add-transaction p {
   margin-bottom: 0;
+}
+.add-transaction .transaction-success {
+  font-size: 30px;
+  margin-left: 5px;
+  position: relative;
+  top: 20px;
+  color: #25ce28;
+  opacity: 0;
+  transition: all 0.2s ease;
+}
+.add-transaction .transaction-success.active {
+  opacity: 1;
 }
 
 @media (max-width: 767px) {

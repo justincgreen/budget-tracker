@@ -8,6 +8,7 @@ body {
 		.form-control {
 			background-color: #242528 !important;
 			border-color: #555252 !important;
+			color: #fff !important;
 		}
 		
 		.app-header {
@@ -101,11 +102,6 @@ body {
 		}
 	}
 	
-	// .app-logo {
-	// 	font-size: 30px;
-	// 	color: #007bff;
-	// }
-	
 	.logo {
 		background-color: #007bff;
 		color: #ffff;
@@ -127,6 +123,7 @@ body {
 	}
 	
 	.toggle-theme {
+		cursor: pointer;
 		position: absolute;
 		top: 5px;
 		right: 15px;
@@ -234,8 +231,49 @@ body {
 		padding-bottom: 10px;
 	}
 	
+	.auto-tags {
+		display: flex;
+		
+		&__message {
+			font-size: 14px;
+		}
+		
+		&__input {
+			width: 20px;
+			margin-right: 10px;
+		}
+		
+		&__list {
+			display: none;
+			margin-left: 10px;
+			
+			.badge {
+				margin-right: 5px;
+				cursor: pointer;
+			}
+			
+			&.active {
+				display: block;
+			}
+		}
+	}
+	
 	p {
 		margin-bottom: 0;
+	}
+	
+	.transaction-success {
+		font-size: 30px;
+		margin-left: 5px;
+		position: relative;
+		top: 20px;
+		color: #25ce28;
+		opacity: 0;
+		transition: all 0.2s ease;
+		
+		&.active {
+			opacity: 1;
+		}
 	}
 }
 

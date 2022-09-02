@@ -37,6 +37,7 @@ const AddTransaction = ({
 			const localIncomeData = parseFloat(income)
 			const localExpenseData = parseFloat(expenses) + parseFloat(transaction.amount);
 			
+			// Update balance, income, expenses values
 			setTransactions(newTransaction);
 			setExpenses(localExpenseData.toFixed(2)); // have to convert each state to a number because they are both strings by default
 			setBalance(localBalanceData.toFixed(2));	
@@ -54,7 +55,13 @@ const AddTransaction = ({
 			localStorage.setItem('balance', localData.balance);
 			localStorage.setItem('income', localData.income);
 			localStorage.setItem('expenses', localData.expenses);
-			localStorage.setItem('transactions', JSON.stringify(localTransactions));			
+			localStorage.setItem('transactions', JSON.stringify(localTransactions));
+			
+			const successIcon = document.querySelector('.transaction-success');
+			successIcon.classList.add('active');
+			setTimeout(()=> {
+				successIcon.classList.remove('active');
+			},1500);
 		}								
 	}	
 	
@@ -120,6 +127,27 @@ const AddTransaction = ({
 		modalMessageTwo.classList.remove('active');	
 	}
 	
+	// Toggle auto tags list
+	const handleTags = () => {
+		const tagsInput = document.querySelector('.auto-tags__input');
+		const tagsList = document.querySelector('.auto-tags__list');
+		const tagsMessage = document.querySelector('.auto-tags__message');
+		
+		if(tagsInput.checked) {
+			tagsList.classList.add('active');
+			tagsMessage.innerText = 'Hide tags?';
+		}else {
+			tagsList.classList.remove('active');
+			tagsMessage.innerText = 'Show tags?';
+		}
+		//tagsInput.checked ? tagsList.classList.add('active') : tagsList.classList.remove('active');
+	}
+	
+	// Auto populate description from auto tag
+	const handlePopulate = (e) => {
+		setDescription(e.target.innerText);
+	}
+	
 	//useEffect(() => {
 		//handleExpenseDate();
 	//}, [transactions])
@@ -129,11 +157,23 @@ const AddTransaction = ({
 		<div className="col-md-6">
 			<div className="add-transaction">
 				<h5>Add new transaction</h5>
+				<div className="auto-tags">
+					<input type="checkbox" className="auto-tags__input" onClick={handleTags} />
+					<p className="auto-tags__message">Show tags?</p>
+					<div className="auto-tags__list">
+						<span className="badge badge-primary" onClick={handlePopulate}>Stella Nova</span>
+						<span className="badge badge-primary" onClick={handlePopulate}>Starbucks</span>
+						<span className="badge badge-primary" onClick={handlePopulate}>Natural Grocers</span>
+						<span className="badge badge-primary" onClick={handlePopulate}>Uptown</span>
+					</div>
+				</div>
+				
 				<p className="mt-3 mb-1">Description</p>
-				<input type="text" className="form-control mb-2" placeholder="Description..." value={description} onChange={(e) => setDescription(e.target.value)} />
+				<input type="text" className="form-control mb-2 transaction-description" placeholder="Description..." value={description} onChange={(e) => setDescription(e.target.value)} />
 				<p className="mb-1">Amount</p>
 				<input type="number" className="form-control" placeholder="Enter amount..." value={amount} onChange={(e) => setAmount(e.target.value)} />
 				<button className="btn btn-primary btn-sm mt-3" onClick={handleTransaction}>Add transaction</button>
+				<span className="material-symbols-outlined transaction-success">priority</span>
 			</div>						
 		</div>
 		
