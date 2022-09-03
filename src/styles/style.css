@@ -29,11 +29,13 @@ body.dark-theme .balance h6 {
   }
 }
 body.dark-theme .edit-panel,
+body.dark-theme .edit-expense-panel,
 body.dark-theme .delete-modal__message--all {
   background-color: #1e1e1e !important;
   color: #fff;
 }
 body.dark-theme .edit-panel .form-control:focus,
+body.dark-theme .edit-expense-panel .form-control:focus,
 body.dark-theme .delete-modal__message--all .form-control:focus {
   background-color: #242528 !important;
   color: #fff;
@@ -198,19 +200,21 @@ body.dark-theme .app-footer a {
   border-bottom: 1px solid #c0c0c0;
   padding-bottom: 10px;
 }
-.add-transaction .auto-tags {
+.add-transaction .auto-tags__info {
   display: flex;
+  align-items: center;
 }
 .add-transaction .auto-tags__message {
   font-size: 14px;
 }
 .add-transaction .auto-tags__input {
   width: 20px;
+  height: 20px;
   margin-right: 10px;
 }
 .add-transaction .auto-tags__list {
   display: none;
-  margin-left: 10px;
+  text-align: center;
 }
 .add-transaction .auto-tags__list .badge {
   margin-right: 5px;
@@ -321,6 +325,67 @@ body.dark-theme .app-footer a {
   opacity: 1;
   transform: translate(-50%, -50%);
   pointer-events: initial;
+}
+
+.edit-expense-modal {
+  background-color: rgba(1, 177, 251, 0.7);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 10;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: all 0.3s ease;
+}
+.edit-expense-modal.active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+.edit-expense-modal.active .edit-expense-panel {
+  transform: translate(-50%, -50%);
+}
+.edit-expense-modal .edit-expense-panel {
+  width: 400px;
+  padding: 20px;
+  border-radius: 10px;
+  background-color: #fff;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, 0%);
+  z-index: 10;
+  transition: all 0.2s ease;
+}
+@media (max-width: 767px) {
+  .edit-expense-modal .edit-expense-panel {
+    width: 300px;
+  }
+}
+.edit-expense-modal .edit-expense-panel h3 {
+  text-align: center;
+}
+@media (max-width: 767px) {
+  .edit-expense-modal .edit-expense-panel h3 {
+    font-size: 30px;
+  }
+}
+.edit-expense-modal .edit-expense-panel .form-control {
+  margin-bottom: 0;
+}
+.edit-expense-modal .close-icon {
+  text-align: center;
+  position: absolute;
+  top: -1px;
+  right: -2px;
+  width: 30px;
+  height: 30px;
+  color: #fff;
+  border-radius: 0 10px 0 0;
+  cursor: pointer;
 }
 
 .error-message {

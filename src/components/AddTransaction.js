@@ -1,8 +1,10 @@
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 
 const AddTransaction = ({
 	balance, setBalance, income, setIncome, transactions, setTransactions, description, setDescription, 
 	amount, setAmount, expenses, setExpenses, error, setError}) => {
+	
+	const [input, setInput] = useState('');
 	
 	const handleDate = () => {
 		let today = new Date();
@@ -148,6 +150,50 @@ const AddTransaction = ({
 		setDescription(e.target.innerText);
 	}
 	
+	// Edit expense modal
+	const handleExpenseModal = () => {
+		const modal = document.querySelector('.edit-expense-modal');
+		modal.classList.add('active');
+	}
+	
+	const closeExpenseModal = () => {
+		const modal = document.querySelector('.edit-expense-modal');
+		modal.classList.remove('active');
+	}
+	
+	// Save income from edit expense button *** Prob need to tweak this
+	const saveIncome = () => {
+		const modal = document.querySelector('.edit-expense-modal');
+		
+		if(input !== ''){
+			const localBalanceData = parseFloat(input) - parseFloat(expenses);
+			const localIncomeData = parseFloat(input);
+			const localExpenseData = parseFloat(expenses);
+			
+			const localData = {
+				balance: localBalanceData.toFixed(2),
+				income: localIncomeData.toFixed(2),
+				expenses: localExpenseData.toFixed(2)
+			}
+			
+			localStorage.setItem('balance', localData.balance);
+			localStorage.setItem('income', localData.income);
+			localStorage.setItem('expenses', localData.expenses);
+			
+			setIncome(localIncomeData.toFixed(2));
+			setBalance(localBalanceData.toFixed(2)); 
+			
+			modal.classList.remove('active');				
+		}else {
+			setError('Enter an expense amount');
+			document.querySelector('.error-message').classList.add('active');
+			
+			setTimeout(()=> {
+				document.querySelector('.error-message').classList.remove('active');				
+			}, 3000);
+		}		
+	}
+	
 	//useEffect(() => {
 		//handleExpenseDate();
 	//}, [transactions])
@@ -158,8 +204,11 @@ const AddTransaction = ({
 			<div className="add-transaction">
 				<h5>Add new transaction</h5>
 				<div className="auto-tags">
-					<input type="checkbox" className="auto-tags__input" onClick={handleTags} />
-					<p className="auto-tags__message">Show tags?</p>
+					<div className="auto-tags__info">
+						<input type="checkbox" className="auto-tags__input" onClick={handleTags} />
+						<p className="auto-tags__message">Show tags?</p>
+					</div>
+					
 					<div className="auto-tags__list">
 						<span className="badge badge-primary" onClick={handlePopulate}>Stella Nova</span>
 						<span className="badge badge-primary" onClick={handlePopulate}>Starbucks</span>
@@ -185,8 +234,8 @@ const AddTransaction = ({
 				)}
 				{transactions.map((item, index) => {
 					return (
-						<div key={item.id} className="expense-list__item">							
-							<div className="form-control clearfix">
+						<div key={item.id} className="expense-list__item">	
+							<div className={`${item.id} form-control clearfix`}>								
 								<div className="expense-list__item--info">
 									<span className="current-date badge">{item.date}</span>
 									<div className="expense-list__item--description">
@@ -198,7 +247,13 @@ const AddTransaction = ({
 								</div>
 								<div className="btn-wrapper">	
 									<div className="btn-group">
-										<button className="btn btn-sm btn-primary edit-item">Edit</button>
+										<button className="btn btn-sm btn-primary edit-item" onClick={(e)=> {
+											handleExpenseModal();
+											// get the value amount of the expense item
+											//console.log(e.target.closest('.expense-list__item').firstChild.querySelector('.expense-list__amount').innerText);
+											//console.log(e.target.closest('.expense-list__item').firstChild.classList);
+											console.log(item.id);
+										}}>Edit</button>
 										<button className="btn btn-sm bg-danger remove-item" onClick={
 											(e) => {
 												const localBalanceData = parseFloat(balance) + parseFloat(e.target.closest('.form-control').querySelector('.expense-list__amount').textContent.substring(1));
@@ -232,6 +287,19 @@ const AddTransaction = ({
 				{transactions.length > 1 && (
 					<button className="btn btn-sm btn-danger mt-2 float-right" onClick={deleteAllExpensesPrompt}>Delete all expenses</button>
 				)}
+				
+				<div className="edit-expense-modal">
+					<div className="edit-expense-panel">
+						<h3>Expense Amount</h3>
+						<div className="input-group mb-2">
+							<input type="number" className="form-control" placeholder="Enter Amount" value={input} onChange={(e) => setInput(e.target.value)} />
+							<div className="input-group-append">
+								<button className="btn btn-sm btn-primary" onClick={saveIncome}>Save</button>
+							</div>						
+						</div>
+						<span className="close-icon bg-danger" onClick={closeExpenseModal}>X</span>
+					</div>
+				</div>
 				
 				<div className="delete-modal">
 					<div className="delete-modal__message delete-modal__message--single">
