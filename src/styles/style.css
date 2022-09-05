@@ -2,65 +2,66 @@ body {
   font-family: "Open Sans", sans-serif;
   transition: background-color 0.2s ease;
 }
-body.dark-theme {
+body.dark-mode {
   background-color: #1e1e1e;
 }
-body.dark-theme .form-control {
+body.dark-mode .form-control {
   background-color: #242528 !important;
   border-color: #555252 !important;
   color: #fff !important;
 }
-body.dark-theme .app-header {
+body.dark-mode .app-header {
   border-bottom: 1px solid #555252;
   background-color: #1e1e1e;
   color: #fff;
 }
-body.dark-theme .balance {
+body.dark-mode .balance {
   border-bottom: 1px solid #555252;
 }
-body.dark-theme .balance h2,
-body.dark-theme .balance h6 {
+body.dark-mode .balance h2,
+body.dark-mode .balance h6 {
   color: #fff;
 }
 @media (max-width: 767px) {
-  body.dark-theme .balance .display-income {
+  body.dark-mode .balance .display-income {
     border-top: 1px solid #555252;
     border-bottom: 1px solid #555252;
   }
 }
-body.dark-theme .edit-panel,
-body.dark-theme .edit-expense-panel,
-body.dark-theme .delete-modal__message--all {
+body.dark-mode .edit-panel,
+body.dark-mode .edit-expense-panel,
+body.dark-mode .delete-modal__message--all {
   background-color: #1e1e1e !important;
   color: #fff;
 }
-body.dark-theme .edit-panel .form-control:focus,
-body.dark-theme .edit-expense-panel .form-control:focus,
-body.dark-theme .delete-modal__message--all .form-control:focus {
+body.dark-mode .edit-panel .form-control:focus,
+body.dark-mode .edit-expense-panel .form-control:focus,
+body.dark-mode .delete-modal__message--all .form-control:focus {
   background-color: #242528 !important;
   color: #fff;
 }
-body.dark-theme .add-transaction {
+body.dark-mode .add-transaction {
   color: #fff;
 }
-body.dark-theme .add-transaction .form-control:focus {
+body.dark-mode .add-transaction .form-control:focus {
   background-color: #242528;
   color: #fff;
 }
-body.dark-theme .expense-list h5 {
+body.dark-mode .expense-list h5,
+body.dark-mode .expense-list p {
   color: #fff;
 }
-body.dark-theme .expense-list .form-control {
+body.dark-mode .expense-list .form-control {
   color: #fff;
 }
-body.dark-theme .expense-list .form-control:focus {
+body.dark-mode .expense-list .form-control:focus {
   background-color: #242528;
   color: #fff;
 }
-body.dark-theme .app-footer {
+body.dark-mode .app-footer {
   color: #fff;
 }
-body.dark-theme .app-footer a {
+body.dark-mode .app-footer a {
   color: #25ce28;
 }
 

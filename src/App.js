@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import Balance from './components/Balance';
@@ -44,9 +44,7 @@ function App() {
       return 0;
     }
   }
-  
-  // Add function to pull dark theme state from local storage
-  
+    
   const [balance, setBalance] = useState(getLocalBalance);
   const [income, setIncome] = useState(getLocalIncome);
   const [transactions, setTransactions] = useState(getLocalTransactions);
@@ -54,10 +52,26 @@ function App() {
   const [amount, setAmount] = useState('');
   const [expenses, setExpenses] = useState(getLocalExpenses);
   const [error, setError] = useState('');
+  const [darkMode, setDarkMode] = useState(false);
+  
+  useEffect(() => {
+    // Light & dark mode local storage functionality when app loads
+    const localData = localStorage.getItem('colorMode');
+    
+    if(localData === 'light-mode') {
+      document.body.classList.remove('dark-mode');
+    }
+    
+    if(localData === 'dark-mode') {
+      setDarkMode(!darkMode);
+      document.body.classList.add('dark-mode');
+    }
+    
+  }, [setDarkMode]);
   
   return (
     <div className="App">
-      <Header />
+      <Header darkMode={darkMode} setDarkMode={setDarkMode} />
       
       <div className="content">
         <div className="container">

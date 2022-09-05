@@ -1,7 +1,17 @@
 
-const Header = () => {
+const Header = (props) => {
+	const { darkMode, setDarkMode } = props;
+	
 	const toggleTheme = () => {
-		document.body.classList.toggle('dark-theme');	
+		setDarkMode(!darkMode);
+		
+		if(!darkMode) {			
+			localStorage.setItem('colorMode', 'dark-mode');
+			document.body.classList.add('dark-mode');
+		}else {
+			localStorage.setItem('colorMode', 'light-mode');
+			document.body.classList.remove('dark-mode');
+		}
 	}
 	
 	return (

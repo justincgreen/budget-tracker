@@ -2,7 +2,7 @@ body {
 	font-family: 'Open Sans', sans-serif;
 	transition: background-color 0.2s ease;
 	
-	&.dark-theme {
+	&.dark-mode {
 		background-color: #1e1e1e;
 		
 		.form-control {
@@ -59,7 +59,8 @@ body {
 		}
 		
 		.expense-list {
-			h5 {
+			h5,
+			p {
 				color: #fff;
 			}
 			
