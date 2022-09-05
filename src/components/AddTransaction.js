@@ -5,6 +5,7 @@ const AddTransaction = ({
 	amount, setAmount, expenses, setExpenses, error, setError}) => {
 	
 	const [input, setInput] = useState('');
+	const [expenseId, setExpenseId] = useState('');
 	
 	const handleDate = () => {
 		let today = new Date();
@@ -28,7 +29,7 @@ const AddTransaction = ({
 		const newTransaction = [...transactions, transaction];
 		
 		if(description === '' || amount === '') {
-			setError('🚫 Enter a description and amount');
+			setError('Enter a description and amount');
 			document.querySelector('.error-message').classList.add('active');
 			
 			setTimeout(()=> {
@@ -162,10 +163,18 @@ const AddTransaction = ({
 	}
 	
 	// Save income from edit expense button *** Prob need to tweak this
-	const saveIncome = () => {
+	// How do I associate new amount back to original item that needs to be updated?
+	// also prob need to clear expense value from edit panel on save or modal close
+	// find the expenseId and apply update to that id
+	const updateExpense = () => {
 		const modal = document.querySelector('.edit-expense-modal');
+		const expenseAmount = document.querySelector('.edit-expense-amount').value;
 		
-		if(input !== ''){
+		console.log(expenseAmount);
+		console.log(document.querySelector(`.expense-list__item--${expenseId}`));
+		//document.querySelector(expenseId)
+		
+		/* if(input !== ''){
 			const localBalanceData = parseFloat(input) - parseFloat(expenses);
 			const localIncomeData = parseFloat(input);
 			const localExpenseData = parseFloat(expenses);
@@ -191,7 +200,7 @@ const AddTransaction = ({
 			setTimeout(()=> {
 				document.querySelector('.error-message').classList.remove('active');				
 			}, 3000);
-		}		
+		} */	
 	}
 	
 	//useEffect(() => {
@@ -234,8 +243,8 @@ const AddTransaction = ({
 				)}
 				{transactions.map((item, index) => {
 					return (
-						<div key={item.id} className="expense-list__item">	
-							<div className={`${item.id} form-control clearfix`}>								
+						<div key={item.id} className={`expense-list__item expense-list__item--${item.id}`}>	
+							<div className="form-control clearfix">								
 								<div className="expense-list__item--info">
 									<span className="current-date badge">{item.date}</span>
 									<div className="expense-list__item--description">
@@ -248,11 +257,12 @@ const AddTransaction = ({
 								<div className="btn-wrapper">	
 									<div className="btn-group">
 										<button className="btn btn-sm btn-primary edit-item" onClick={(e)=> {
+											setExpenseId(item.id);
 											handleExpenseModal();
 											// get the value amount of the expense item
 											//console.log(e.target.closest('.expense-list__item').firstChild.querySelector('.expense-list__amount').innerText);
 											//console.log(e.target.closest('.expense-list__item').firstChild.classList);
-											console.log(item.id);
+											//console.log(item.id);											
 										}}>Edit</button>
 										<button className="btn btn-sm bg-danger remove-item" onClick={
 											(e) => {
@@ -292,9 +302,9 @@ const AddTransaction = ({
 					<div className="edit-expense-panel">
 						<h3>Expense Amount</h3>
 						<div className="input-group mb-2">
-							<input type="number" className="form-control" placeholder="Enter Amount" value={input} onChange={(e) => setInput(e.target.value)} />
+							<input type="number" className="form-control edit-expense-amount" placeholder="Enter Amount" value={input} onChange={(e) => setInput(e.target.value)} />
 							<div className="input-group-append">
-								<button className="btn btn-sm btn-primary" onClick={saveIncome}>Save</button>
+								<button className="btn btn-sm btn-primary" onClick={updateExpense}>Update</button>
 							</div>						
 						</div>
 						<span className="close-icon bg-danger" onClick={closeExpenseModal}>X</span>

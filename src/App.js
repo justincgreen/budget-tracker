@@ -63,11 +63,9 @@ function App() {
     }
     
     if(localData === 'dark-mode') {
-      setDarkMode(!darkMode);
       document.body.classList.add('dark-mode');
     }
-    
-  }, [setDarkMode]);
+  }, [darkMode]);
   
   return (
     <div className="App">
