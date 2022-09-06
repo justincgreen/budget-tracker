@@ -112,15 +112,6 @@ const AddTransaction = ({
 		localStorage.setItem('balance', localBalanceData.toFixed(2));		
 	}
 	
-	// May just need to write a separate modal for edit button on expenses
-	// instead of trying to repurpose the same one
-	// need the text to be different "Expense Amount" instead of "Income Amount"
-	//const handleExpenseModal = () => {
-		//const modal = document.querySelector('.edit-modal');
-		//modal.classList.add('active');
-		//modal.querySelector('h3').innerHTML = 'Expense Amount';
-	//}
-	
 	const closeDeleteModal = () => {
 		const modal = document.querySelector('.delete-modal');
 		const modalMessageOne = document.querySelector('.delete-modal__message--single');
@@ -168,11 +159,60 @@ const AddTransaction = ({
 	// find the expenseId and apply update to that id
 	const updateExpense = () => {
 		const modal = document.querySelector('.edit-expense-modal');
-		const expenseAmount = document.querySelector('.edit-expense-amount').value;
+		const orgExpenseAmount = document.querySelector(`.expense-list__item--${expenseId} .expense-list__amount`).innerText;
+		const removeDollarSign = orgExpenseAmount.substring(1); // remove dollar sign from amount so it can convert to a number
+		const orgExpenseAmountNumberConversion = parseFloat(removeDollarSign);
+		const expenseModalAmount = document.querySelector('.edit-expense-amount').value;
+		const expenseModalAmountNumberConversion = parseFloat(expenseModalAmount);
+		const currentExpenseDifference = orgExpenseAmountNumberConversion - expenseModalAmountNumberConversion; // clicked expense item amount minus expense modal amount
 		
-		console.log(expenseAmount);
-		console.log(document.querySelector(`.expense-list__item--${expenseId}`));
-		//document.querySelector(expenseId)
+		// NOTE: do income - expenses to get the balance
+		// NOTE: Need to rethink all the logic here
+		
+		if(input !== '') {
+			// Apply updated expense amount number to ui item
+			document.querySelector(`.expense-list__item--${expenseId} .expense-list__amount`).innerText = '$' + expenseModalAmount;
+			console.log(currentExpenseDifference)
+			//console.log(parseFloat(updatedExpenseAmount) - parseFloat(orgExpenseAmountNumberConversion));
+			
+			// we need the difference between old expense amount and new expense amount 			
+			//const globalExpensesUpdate = parseFloat(expenses) + expenseDifference;
+			
+			const localBalanceData = parseFloat(input) + parseFloat(expenses);
+			//const localIncomeData = parseFloat(input);
+			const localExpenseData =  parseFloat(input) + parseFloat(expenses);
+			
+			const localData = {
+				//balance: localBalanceData.toFixed(2),
+				//income: localIncomeData.toFixed(2),
+				//expenses: localExpenseData.toFixed(2)
+			}
+			
+			//setExpenses(globalExpensesUpdate);	
+			
+			//let updatedBalance = income - expenses;
+			
+			// update localStorage			
+			//localStorage.setItem('balance', localData.balance);
+			//localStorage.setItem('income', localData.income);
+			//localStorage.setItem('expenses', localData.expenses);
+			
+			//setIncome(localIncomeData.toFixed(2));
+			//setBalance(localBalanceData.toFixed(2)); 
+			
+			//modal.classList.remove('active');	
+			//setInput('');
+		}else {
+			setError('Enter an expense amount');
+			document.querySelector('.error-message').classList.add('active');
+			
+			setTimeout(()=> {
+				document.querySelector('.error-message').classList.remove('active');				
+			}, 3000);
+		}
+		
+		
+		// update overall balance amount and overall expense amount
 		
 		/* if(input !== ''){
 			const localBalanceData = parseFloat(input) - parseFloat(expenses);
