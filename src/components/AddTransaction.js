@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 const AddTransaction = ({
 	balance, setBalance, income, setIncome, transactions, setTransactions, description, setDescription, 
@@ -243,10 +243,6 @@ const AddTransaction = ({
 		} */	
 	}
 	
-	//useEffect(() => {
-		//handleExpenseDate();
-	//}, [transactions])
-	
 	return (
 		<>
 		<div className="col-md-6">
@@ -306,25 +302,44 @@ const AddTransaction = ({
 										}}>Edit</button>
 										<button className="btn btn-sm bg-danger remove-item" onClick={
 											(e) => {
-												const localBalanceData = parseFloat(balance) + parseFloat(e.target.closest('.form-control').querySelector('.expense-list__amount').textContent.substring(1));
-												const localIncomeData = parseFloat(income);
-												const localExpenseData = parseFloat(expenses) - parseFloat(e.target.closest('.form-control').querySelector('.expense-list__amount').textContent.substring(1));
-												// substring method needed to remove $ sign from item price, allows string to convert to a clean number
+												const deleteModal = document.querySelector('.delete-modal');
+												const deleteMessage = document.querySelector('.delete-modal__message--single');
+												const deleteModalConfirm = document.querySelector('.delete-modal__message--single .btn-confirm');
 												
-												setBalance(localBalanceData.toFixed(2));
-												setExpenses(localExpenseData.toFixed(2));
-												deleteExpense(item.id);
+												deleteModal.classList.add('active');
+												deleteMessage.classList.add('active');
 												
-												// update local storage objects
-												const localData = {
-													balance: localBalanceData.toFixed(2),
-													income: localIncomeData.toFixed(2),
-													expenses: localExpenseData.toFixed(2)
-												}
-												
-												localStorage.setItem('balance', localData.balance);
-												localStorage.setItem('income', localData.income);
-												localStorage.setItem('expenses', localData.expenses);																				
+												// delete expense confirmation
+												deleteModalConfirm.addEventListener('click', () => {
+													if(deleteMessage.classList.contains('active')) {
+														const localBalanceData = parseFloat(balance) + parseFloat(e.target.closest('.form-control').querySelector('.expense-list__amount').textContent.substring(1));
+														const localIncomeData = parseFloat(income);
+														const localExpenseData = parseFloat(expenses) - parseFloat(e.target.closest('.form-control').querySelector('.expense-list__amount').textContent.substring(1));
+														// substring method needed to remove $ sign from item price, allows string to convert to a clean number
+														
+														setBalance(localBalanceData.toFixed(2));
+														setExpenses(localExpenseData.toFixed(2));
+														deleteExpense(item.id);
+														
+														// update local storage objects
+														const localData = {
+															balance: localBalanceData.toFixed(2),
+															income: localIncomeData.toFixed(2),
+															expenses: localExpenseData.toFixed(2)
+														}
+														
+														localStorage.setItem('balance', localData.balance);
+														localStorage.setItem('income', localData.income);
+														localStorage.setItem('expenses', localData.expenses);	
+														
+														// buffer needed, otherwise code above might not fire off
+														setTimeout( () => {
+															deleteModal.classList.remove('active');
+															deleteMessage.classList.remove('active');
+														}, 100);
+														
+													}
+												})																																								
 											}
 										}>Delete</button>	
 									</div>
@@ -354,7 +369,7 @@ const AddTransaction = ({
 				<div className="delete-modal">
 					<div className="delete-modal__message delete-modal__message--single">
 						<h3>Do you really want to delete this expense?</h3>
-						<button className="btn btn-sm btn-primary">Yes</button>
+						<button className="btn btn-sm btn-primary btn-confirm">Yes</button>
 						<button className="btn btn-sm btn-danger" onClick={closeDeleteModal}>No</button>
 					</div>
 					
