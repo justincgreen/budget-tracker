@@ -30,12 +30,14 @@ body.dark-mode .balance h6 {
 }
 body.dark-mode .edit-panel,
 body.dark-mode .edit-expense-panel,
+body.dark-mode .delete-modal__message--single,
 body.dark-mode .delete-modal__message--all {
   background-color: #1e1e1e !important;
   color: #fff;
 }
 body.dark-mode .edit-panel .form-control:focus,
 body.dark-mode .edit-expense-panel .form-control:focus,
+body.dark-mode .delete-modal__message--single .form-control:focus,
 body.dark-mode .delete-modal__message--all .form-control:focus {
   background-color: #242528 !important;
   color: #fff;

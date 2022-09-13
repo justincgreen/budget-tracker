@@ -7,6 +7,7 @@ const AddTransaction = ({
 	const [input, setInput] = useState('');
 	const [expenseId, setExpenseId] = useState('');
 	
+	// Add date to expense item
 	const handleDate = () => {
 		let today = new Date();
 		const dd = String(today.getDate()).padStart(2, '0');
@@ -18,6 +19,7 @@ const AddTransaction = ({
 		return today;
 	}
 	
+	// Add new transaction
 	const handleTransaction = () => {		
 		const transaction = {
 			id: Date.now(),
@@ -68,16 +70,6 @@ const AddTransaction = ({
 		}								
 	}	
 	
-	
-	// Delete individual expense modal prompt - still sorting out how to trigger prompt and handle deleteExpense() from outside of the element 
-	// maybe try mutation observer to watch for class change on .delete-modal__message--single, watch for active class
-	const deleteExpensePrompt = () => {
-		const modal = document.querySelector('.delete-modal');
-		const modalMessage = document.querySelector('.delete-modal__message--single');
-		modal.classList.add('active');	
-		modalMessage.classList.add('active');		
-	}
-	
 	// Delete individual expense
 	const deleteExpense = (id) => {
 		const filterItems = transactions.filter((element, index) => {
@@ -112,6 +104,7 @@ const AddTransaction = ({
 		localStorage.setItem('balance', localBalanceData.toFixed(2));		
 	}
 	
+	// Close delete modal
 	const closeDeleteModal = () => {
 		const modal = document.querySelector('.delete-modal');
 		const modalMessageOne = document.querySelector('.delete-modal__message--single');
@@ -134,7 +127,6 @@ const AddTransaction = ({
 			tagsList.classList.remove('active');
 			tagsMessage.innerText = 'Show tags?';
 		}
-		//tagsInput.checked ? tagsList.classList.add('active') : tagsList.classList.remove('active');
 	}
 	
 	// Auto populate description from auto tag
@@ -148,13 +140,12 @@ const AddTransaction = ({
 		modal.classList.add('active');
 	}
 	
+	// Close expense modal
 	const closeExpenseModal = () => {
 		const modal = document.querySelector('.edit-expense-modal');
 		modal.classList.remove('active');
 	}
 	
-	// Save income from edit expense button *** Prob need to tweak this
-	// How do I associate new amount back to original item that needs to be updated?
 	// also prob need to clear expense value from edit panel on save or modal close
 	// find the expenseId and apply update to that id
 	const updateExpense = () => {
@@ -336,8 +327,7 @@ const AddTransaction = ({
 														setTimeout( () => {
 															deleteModal.classList.remove('active');
 															deleteMessage.classList.remove('active');
-														}, 100);
-														
+														}, 100);														
 													}
 												})																																								
 											}
