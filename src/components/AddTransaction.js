@@ -5,7 +5,7 @@ const AddTransaction = ({
 	amount, setAmount, expenses, setExpenses, error, setError}) => {
 	
 	const [input, setInput] = useState('');
-	const [expenseId, setExpenseId] = useState('');
+	const [expenseId, setExpenseId] = useState(''); // used to check the expense id based on deleting expense or editing expense
 	
 	// Add date to expense item
 	const handleDate = () => {
@@ -162,22 +162,22 @@ const AddTransaction = ({
 		
 		if(input !== '') {
 			// Apply updated expense amount number to ui item
-			document.querySelector(`.expense-list__item--${expenseId} .expense-list__amount`).innerText = '$' + expenseModalAmount;
-			console.log(currentExpenseDifference)
+			//document.querySelector(`.expense-list__item--${expenseId} .expense-list__amount`).innerText = '$' + expenseModalAmount;
+			//console.log(currentExpenseDifference)
 			//console.log(parseFloat(updatedExpenseAmount) - parseFloat(orgExpenseAmountNumberConversion));
 			
 			// we need the difference between old expense amount and new expense amount 			
 			//const globalExpensesUpdate = parseFloat(expenses) + expenseDifference;
 			
-			const localBalanceData = parseFloat(input) + parseFloat(expenses);
+			//const localBalanceData = parseFloat(input) + parseFloat(expenses);
 			//const localIncomeData = parseFloat(input);
-			const localExpenseData =  parseFloat(input) + parseFloat(expenses);
+			//const localExpenseData =  parseFloat(input) + parseFloat(expenses);
 			
-			const localData = {
-				//balance: localBalanceData.toFixed(2),
-				//income: localIncomeData.toFixed(2),
-				//expenses: localExpenseData.toFixed(2)
-			}
+			/*const localData = {
+				balance: localBalanceData.toFixed(2),
+				income: localIncomeData.toFixed(2),
+				expenses: localExpenseData.toFixed(2)
+			}*/
 			
 			//setExpenses(globalExpensesUpdate);	
 			
@@ -203,7 +203,8 @@ const AddTransaction = ({
 		}
 		
 		
-		// update overall balance amount and overall expense amount
+		// The code below is the original code that is used to update the balance and expenses
+		// reference for edit expense logic
 		
 		/* if(input !== ''){
 			const localBalanceData = parseFloat(input) - parseFloat(expenses);
@@ -284,8 +285,8 @@ const AddTransaction = ({
 								<div className="btn-wrapper">	
 									<div className="btn-group">
 										<button className="btn btn-sm btn-primary edit-item" onClick={(e)=> {
-											setExpenseId(item.id);
-											handleExpenseModal();
+											//setExpenseId(item.id);
+											//handleExpenseModal();
 											// get the value amount of the expense item
 											//console.log(e.target.closest('.expense-list__item').firstChild.querySelector('.expense-list__amount').innerText);
 											//console.log(e.target.closest('.expense-list__item').firstChild.classList);
