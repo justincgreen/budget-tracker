@@ -38,7 +38,7 @@ const Balance = ({balance, setBalance, income, setIncome, expenses, setExpenses,
 			
 			modal.classList.remove('active');				
 		}else {
-			setError('🚫 Enter an income amount');
+			setError('Enter an income amount');
 			document.querySelector('.error-message').classList.add('active');
 			
 			setTimeout(()=> {
