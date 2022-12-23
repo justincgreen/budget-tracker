@@ -249,8 +249,12 @@ const AddTransaction = ({
 					<div className="auto-tags__list">
 						<span className="badge badge-primary" onClick={handlePopulate}>Stella Nova</span>
 						<span className="badge badge-primary" onClick={handlePopulate}>Starbucks</span>
-						<span className="badge badge-primary" onClick={handlePopulate}>Natural Grocers</span>
-						<span className="badge badge-primary" onClick={handlePopulate}>Uptown</span>
+						<span className="badge badge-primary" onClick={handlePopulate}>Groceries</span>
+						<span className="badge badge-primary" onClick={handlePopulate}>Savings</span>
+						<span className="badge badge-primary" onClick={handlePopulate}>Roth</span>
+						<span className="badge badge-primary" onClick={handlePopulate}>Rent</span>
+						{/* <span className="badge badge-primary" onClick={handlePopulate}>Natural Grocers</span> */}
+						{/* <span className="badge badge-primary" onClick={handlePopulate}>Uptown</span> */}
 					</div>
 				</div>
 				
@@ -284,14 +288,14 @@ const AddTransaction = ({
 								</div>
 								<div className="btn-wrapper">	
 									<div className="btn-group">
-										<button className="btn btn-sm btn-primary edit-item" onClick={(e)=> {
+										{/* <button className="btn btn-sm btn-primary edit-item" onClick={(e)=> {
 											//setExpenseId(item.id);
 											//handleExpenseModal();
 											// get the value amount of the expense item
 											//console.log(e.target.closest('.expense-list__item').firstChild.querySelector('.expense-list__amount').innerText);
 											//console.log(e.target.closest('.expense-list__item').firstChild.classList);
 											//console.log(item.id);											
-										}}>Edit</button>
+										}}>Edit</button> */}
 										<button className="btn btn-sm bg-danger remove-item" onClick={
 											(e) => {
 												const deleteModal = document.querySelector('.delete-modal');

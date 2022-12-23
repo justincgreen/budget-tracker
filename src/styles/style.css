@@ -1,6 +1,32 @@
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+@keyframes slideDown {
+  from {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0px);
+    opacity: 1;
+  }
+}
 body {
   font-family: "Open Sans", sans-serif;
   transition: background-color 0.2s ease;
+}
+body.gradient-mode {
+  background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+  background-size: 400% 400%;
+  animation: gradient 15s ease infinite;
 }
 body.dark-mode {
   background-color: #1e1e1e;
@@ -222,6 +248,7 @@ body.dark-mode .app-footer a {
 .add-transaction .auto-tags__list .badge {
   margin-right: 5px;
   cursor: pointer;
+  padding: 0.3em 0.7em;
 }
 .add-transaction .auto-tags__list.active {
   display: block;
@@ -249,6 +276,9 @@ body.dark-mode .app-footer a {
 }
 .expense-list__item {
   position: relative;
+  animation-name: slideDown;
+  animation-duration: 0.5s;
+  animation-iteration-count: 1;
 }
 .expense-list h5 {
   margin-bottom: 25px;

@@ -53,23 +53,32 @@ function App() {
   const [expenses, setExpenses] = useState(getLocalExpenses);
   const [error, setError] = useState('');
   const [darkMode, setDarkMode] = useState(false);
+  const [gradientMode, setGradientMode] = useState(false);
   
   useEffect(() => {
-    // Light & dark mode local storage functionality when app loads
+    // Light, dark, & gradient mode local storage functionality when app loads
     const localData = localStorage.getItem('colorMode');
     
     if(localData === 'light-mode') {
       document.body.classList.remove('dark-mode');
+      document.body.classList.remove('gradient-mode');
     }
     
     if(localData === 'dark-mode') {
-      document.body.classList.add('dark-mode');
+      document.body.classList.remove('gradient-mode');
+      document.body.classList.add('dark-mode');      
     }
+    
+    // Testing gradient mode idea
+    //if(localData === 'gradient-mode') {
+      //document.body.classList.remove('dark-mode');
+      //document.body.classList.add('gradient-mode');      
+    //}
   }, [darkMode]);
   
   return (
     <div className="App">
-      <Header darkMode={darkMode} setDarkMode={setDarkMode} />
+      <Header darkMode={darkMode} setDarkMode={setDarkMode} gradientMode={gradientMode} setGradientMode={setGradientMode} />
       
       <div className="content">
         <div className="container">
